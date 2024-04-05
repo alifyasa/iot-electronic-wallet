@@ -15,12 +15,14 @@ func main() {
 	mux.Handle("/", fs)
 	mux.HandleFunc("/hello", helloHandler)
 	mux.HandleFunc("/ws", WsHandler)
+	mux.HandleFunc("/pay", PayHandler)
+	mux.HandleFunc("/check-wallet", CheckWalletHandler)
 
 	loggedMux := LoggingMiddleware(mux)
 
-	log.Println("Server starting on port 8080...")
+	log.Println("Server starting on port 8080")
 	log.Fatal(
-		http.ListenAndServe(":8080", loggedMux),
+		http.ListenAndServe("0.0.0.0:8080", loggedMux),
 	)
 }
 

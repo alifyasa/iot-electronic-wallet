@@ -46,6 +46,7 @@ func WsHandler(w http.ResponseWriter, r *http.Request) {
 	for {
 		if _, _, err := conn.NextReader(); err != nil {
 			WSConnections.Lock()
+			log.Printf("Disconnecting %s\n", conn.RemoteAddr())
 			delete(WSConnections.items, conn)
 			WSConnections.Unlock()
 			break
